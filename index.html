@@ -4,14 +4,41 @@
   
   </head>
   <body>
-    <input type="text"></input>
+    <input type="text" id="scriptLink"></input>
     <button>Load script</button>
     <br>
-    <input type="text"></input>
+    <input type="text" id="command"></input>
     <button>Run</button>
     <hr>
+    <div id="console"> </div>
     <script>
-      
+     function loadError(oError) {
+  throw new URIError(`The script ${oError.target.src} didn't load correctly.`);
+}
+
+function affixScriptToHead(url, onloadFunction) {
+  const newScript = document.createElement("script");
+  newScript.onerror = loadError;
+  if (onloadFunction) {
+    newScript.onload = onloadFunction;
+  }
+  document.head.appendChild(newScript);
+  newScript.src = url;
+}
+      console.log = function(text) {
+        document.getElementById("console").append(text);
+      }
+
+      console.warn = console.log;
+      console.error = console.log;
+      console.info = console.log;
+
+      function loadScript() {
+        affixScriptToHead(
+          document.getElementById("scriptLink",
+                                  () =>
+                                    console.log("Script successfully loaded!")
+      }
     </script>
   </body>
   
