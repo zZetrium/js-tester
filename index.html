@@ -4,10 +4,10 @@
   
   </head>
   <body>
-    <input type="text" id="scriptLink"></input>
+    <input type="text" id="scriptLink">
     <button onClick="loadScript()">Load script</button>
     <br>
-    <input type="text" id="command"></input>
+    <input type="text" id="command">
     <button>Run</button>
     <hr>
     <div id="console"> </div>
@@ -26,7 +26,7 @@ function affixScriptToHead(url, onloadFunction) {
   newScript.src = url;
 }
       console.log = function(text) {
-        document.getElementById("console").append(text);
+        document.getElementById("console").append(text+"<br>");
       }
 
       console.warn = console.log;
@@ -35,7 +35,7 @@ function affixScriptToHead(url, onloadFunction) {
 
       function loadScript() {
         affixScriptToHead(
-          document.getElementById("scriptLink",
+          document.getElementById("scriptLink").value,
                                   () =>
                                     console.log("Script successfully loaded!")
       }
